@@ -9,8 +9,8 @@ import {Document} from "../service/document.service";
   imports: [
     FormsModule
   ],
-  templateUrl: './config.html',
-  styleUrl: './config.css',
+  templateUrl: './config.component.html',
+  styleUrl: './config.component.css',
 })
 export class ConfigComponent implements OnInit {
 
