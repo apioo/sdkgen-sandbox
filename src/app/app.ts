@@ -10,13 +10,13 @@ import {RouterOutlet} from '@angular/router';
 export class App {
 }
 
-export interface ElectronAPI {
+export interface FusioAPI {
   selectDirectory: () => Promise<string | null>;
   writeModels: (outputDir: string, files: Array<{ file: string, content: string }>) => Promise<{ success: boolean; error?: string }>;
 }
 
 declare global {
   interface Window {
-    electronAPI: ElectronAPI;
+    fusio: FusioAPI;
   }
 }

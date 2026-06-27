@@ -30,7 +30,7 @@ export class ConfigComponent implements OnInit {
   }
 
   get isElectron(): boolean {
-    return !!(window && window.electronAPI);
+    return !!(window && window.fusio);
   }
 
   doSave() {
@@ -44,7 +44,7 @@ export class ConfigComponent implements OnInit {
       return;
     }
 
-    this.document.targetFolder = await window.electronAPI.selectDirectory();
+    this.document.targetFolder = await window.fusio.selectDirectory();
   }
 
 }

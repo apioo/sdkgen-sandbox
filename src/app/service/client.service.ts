@@ -44,7 +44,7 @@ export class ClientService {
     }
 
     const targetFolder = doc.targetFolder;
-    if (targetFolder) {
+    if (targetFolder && window.fusio) {
       return new Promise((resolve, reject) => {
         this.httpClient.post<Response>('https://api.sdkgen.app/generate/' + doc.type, spec, { headers, params }).subscribe({
           next: async (data: Response) => {
@@ -67,7 +67,7 @@ export class ClientService {
               });
             }
 
-            const result = await window.electronAPI.writeModels(targetFolder, files);
+            const result = await window.fusio.writeModels(targetFolder, files);
             if (result.success) {
               resolve({
                 success: true,
