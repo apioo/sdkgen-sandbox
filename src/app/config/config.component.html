@@ -35,7 +35,7 @@
     <div class="mb-3">
       <label for="targetFolder" class="form-label">Target folder</label>
       <div class="input-group">
-        <input type="text" class="form-control" id="targetFolder" name="targetFolder" [readonly]="true" [disabled]="true" [(ngModel)]="document.targetFolder">
+        <input type="text" class="form-control" id="targetFolder" name="targetFolder" [readonly]="true" [disabled]="true" [ngModel]="document.targetFolder">
         <button type="button" class="btn btn-secondary" (click)="chooseFolder()" title="Select folder"><i class="bi bi-folder2-open"></i></button>
       </div>
       <div id="targetFolder" class="form-text">
