@@ -7,6 +7,7 @@ import {FormsModule} from "@angular/forms";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ConfigComponent} from "../config/config.component";
 import {ClientService, Message, Type} from "../service/client.service";
+import {PromptComponent} from "../prompt/prompt.component";
 
 @Component({
   selector: 'app-sandbox',
@@ -93,15 +94,18 @@ export class SandboxComponent implements OnInit {
   }
 
   new() {
-    const name = prompt('Document name');
-    if (!name) {
-      return;
-    }
+    const modalRef = this.modalService.open(PromptComponent, { centered: true });
+    modalRef.result.then(
+      (name: string) => {
+        if (!name) {
+          return;
+        }
 
-    const index = this.documentService.create(name, 'model-typescript');
-
-    this.load();
-    this.doSelect(index);
+        const index = this.documentService.create(name, 'model-typescript');
+        this.load();
+        this.doSelect(index);
+      }
+    );
   }
 
   onChange(spec: Specification) {
