@@ -1,0 +1,66 @@
+
+<div class="bg-dark text-light px-3 d-flex justify-content-between align-items-center fixed-top" style="height: 40px; font-size: 0.85rem; z-index: 1030;">
+  <div class="fw-semibold tracking-wide d-flex align-items-center">
+    <span class="text-white-50 me-1">SDKgen</span> Sandbox
+  </div>
+  <div>
+    <a href="https://sdkgen.app" target="_blank" rel="noopener" class="text-white-50 text-decoration-none hover-white d-inline-flex align-items-center" style="transition: color 0.15s ease-in-out;">
+      sdkgen.app <i class="bi bi-box-arrow-up-right ms-1" style="font-size: 0.7rem;"></i>
+    </a>
+  </div>
+</div>
+
+<div class="container-fluid p-3 mt-5">
+  <div class="row">
+    <div class="col-xl-2">
+      <div class="btn-group mb-3 sticky-top" role="group">
+        <button type="button" class="btn btn-success" (click)="new()" title="New Document">New Document</button>
+      </div>
+      <div class="list-group">
+        @for (document of documents(); track $index; let idx = $index) {
+          <div (click)="doSelect(idx)" [ngClass]="{'active': idx === selected()}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" style="cursor: pointer;">
+            <span>{{ document.name }}</span>
+            <button type="button" class="btn-close" [class.btn-close-white]="idx === selected()" aria-label="Delete" (click)="$event.stopPropagation();doDelete(idx)"></button>
+          </div>
+        }
+      </div>
+      <br>
+    </div>
+    <div class="col-xl-7">
+      @if (selected() !== -1) {
+        <typeschema-editor [id]="'document-' + selected()" [specification]="spec()" [operationEnabled]="true" (change)="onChange($event)"></typeschema-editor>
+      }
+      @else {
+        <div class="">
+          <p class="fs-5 fw-bold text-muted">Please create a document</p>
+        </div>
+      }
+    </div>
+    <div class="col-xl-3">
+      @if (selected() !== -1) {
+        <div class="input-group mb-3">
+          <button type="button" class="btn btn-success" (click)="doGenerate()" title="Generate">Generate</button>
+          <select [ngModel]="type()" (ngModelChange)="type.set($event)" class="form-select">
+            @for (type of types(); track $index) {
+              <option [ngValue]="type.name">{{ type.name }}</option>
+            }
+          </select>
+          <button type="button" class="btn btn-secondary" (click)="showConfig()" title="ConfigComponent"><i class="bi bi-gear"></i></button>
+          @if (response(); as response) {
+            @if (response.success === true) {
+              <button type="button" (click)="showMessage(response.message)" class="btn btn-success"><i class="bi bi-check"></i></button>
+            }
+            @if (response.success === false) {
+              <button type="button" (click)="showMessage(response.message)" class="btn btn-danger"><i class="bi bi-x"></i></button>
+            }
+          }
+        </div>
+        @if (preview(); as preview) {
+          <div style="width:100%;height:500px;border:1px solid #ced4da">
+            <ngx-monaco-editor [ngModel]="preview" [options]="{theme: 'vs-light', language: 'json', readOnly: true}" [id]="'preview-' + selected()" [name]="'preview-' + selected()" style="height:100%"></ngx-monaco-editor>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</div>
