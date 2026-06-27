@@ -1,4 +1,4 @@
-# TypeSchema-Sandbox
+# SDKgen-Sandbox
 
-TypeSchema sandbox editor to quickly design a [TypeSchema specification](https://typeschema.org/) s.
-https://sandbox.typeschema.org
+An online sandbox editor to design models or HTTP endpoints powered by [SDKgen](https://sdkgen.app/).
+
