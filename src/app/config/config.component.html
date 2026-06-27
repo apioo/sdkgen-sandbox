@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">ConfigComponent</h4>
+  <h4 class="modal-title">Config</h4>
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body">
@@ -7,24 +7,39 @@
     <div class="mb-3">
       <label for="clientId" class="form-label">Client-ID</label>
       <input type="text" class="form-control" id="clientId" name="clientId" [(ngModel)]="config.clientId">
+      <div id="clientId" class="form-text">
+        The username or app-key of your sdkgen.app account.
+      </div>
     </div>
     <div class="mb-3">
       <label for="clientSecret" class="form-label">Client-Secret</label>
       <input type="password" class="form-control" id="clientSecret" name="clientSecret" [(ngModel)]="config.clientSecret">
+      <div id="clientSecret" class="form-text">
+        The password or app-secret of your sdkgen.app account.
+      </div>
     </div>
     <div class="mb-3">
       <label for="namespace" class="form-label">Namespace</label>
       <input type="text" class="form-control" id="namespace" name="namespace" [(ngModel)]="document.namespace">
+      <div id="namespace" class="form-text">
+        Optional a namespace, this is only used by specific generators where a namespace is viable i.e. Java or PHP.
+      </div>
     </div>
     <div class="mb-3">
       <label for="baseUrl" class="form-label">Base-URL</label>
       <input type="text" class="form-control" id="baseUrl" name="baseUrl" [(ngModel)]="document.baseUrl">
+      <div id="baseUrl" class="form-text">
+        Optional a base-url which is used for client SDK generation.
+      </div>
     </div>
     <div class="mb-3">
       <label for="targetFolder" class="form-label">Target folder</label>
       <div class="input-group">
         <input type="text" class="form-control" id="targetFolder" name="targetFolder" [readonly]="true" [disabled]="true" [(ngModel)]="document.targetFolder">
         <button type="button" class="btn btn-secondary" (click)="chooseFolder()" title="Select folder"><i class="bi bi-folder2-open"></i></button>
+      </div>
+      <div id="targetFolder" class="form-text">
+        Optional a target folder where the generated code is placed, this is only used inside the electron app.
       </div>
     </div>
   </form>
