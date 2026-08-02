@@ -15,10 +15,7 @@ export class ClientService {
     return new Promise((resolve, reject) => {
       this.httpClient.get<Collection>('https://api.sdkgen.app/types').subscribe({
         next: data => {
-          const types = data.types.filter((type) => {
-            return type.name.startsWith('model-');
-          });
-          resolve(types);
+          resolve(data.types);
         },
         error: err => {
           reject(err);

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {Component, computed, inject, OnInit, signal} from '@angular/core';
 import {ExportService, Specification, TypeschemaEditorModule} from "ngx-typeschema-editor";
 import {Document, DocumentService} from "../service/document.service";
 import {NgClass} from "@angular/common";
@@ -35,6 +35,19 @@ export class SandboxComponent implements OnInit {
   type = signal<string>('model-typescript');
   types = signal<Array<Type>>([]);
   response = signal<Message|undefined>(undefined);
+
+  relevantTypes = computed<Array<Type>>(() => {
+    const preview = this.preview();
+    const types = this.types();
+    const hasOperations = this.spec().operations.length > 0
+    if (hasOperations) {
+      return types;
+    } else {
+      return types.filter((type) => {
+        return type.name.startsWith('model-');
+      });
+    }
+  });
 
   private clientService = inject(ClientService);
   private documentService = inject(DocumentService);
